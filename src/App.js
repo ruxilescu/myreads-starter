@@ -3,6 +3,7 @@ import React from 'react'
 import './App.css'
 // import { Books, APIBooks } from './BookData';
 import Book from './components/Book/Book'
+import Shelf from './components/Shelf/Shelf'
 
 const extract = {
   bookshelf: {
@@ -144,38 +145,13 @@ class BooksApp extends React.Component {
                 <div>
 
                   {/* Start Shelf */}
-                  <div className="bookshelf">
-                    <h2 className="bookshelf-title">Currently Reading</h2>
-                    <div className="bookshelf-books">
-                      <ol className="books-grid">
 
-                        {extract.bookshelf.shelves[0].books.map(book => <Book book={book} />)}
+                  {extract.bookshelf.shelves.map(shelf => <Shelf shelf={shelf} />)}
 
-                      </ol>
-                    </div>
-                  </div>
+                  
                   {/* End of Shelf */}
-                  <div className="bookshelf">
-                    <h2 className="bookshelf-title">Want to Read</h2>
-                    <div className="bookshelf-books">
-                      <ol className="books-grid">
-
-                        {extract.bookshelf.shelves[1].books.map(book => <Book book={book} />)}
-
-                      </ol>
-                    </div>
-                  </div>
-                  <div className="bookshelf">
-                    <h2 className="bookshelf-title">Read</h2>
-                    <div className="bookshelf-books">
-                      <ol className="books-grid">
-
-                        {extract.bookshelf.shelves[2].books.map(book => <Book book={book} />)}
-
-
-                      </ol>
-                    </div>
-                  </div>
+                    
+                  
                 </div>
               </div>
               <div className="open-search">
