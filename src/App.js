@@ -4,6 +4,7 @@ import './App.css'
 // import { Books, APIBooks } from './BookData';
 import Book from './components/Book/Book'
 import Shelf from './components/Shelf/Shelf'
+import BookPage from './components/BookPage/BookPage'
 
 const extract = {
   bookshelf: {
@@ -109,6 +110,10 @@ class BooksApp extends React.Component {
     showSearchPage: false
   }
 
+  clickSearch = () => {
+    this.setState({ showSearchPage: true })
+  }
+
   render() {
     return (
       <div className="app">
@@ -134,30 +139,7 @@ class BooksApp extends React.Component {
             </div>
           </div>
         ) : (
-            // Start Book Page
-            <div className="list-books">
-              <div className="list-books-title">
-                <h1>MyReads</h1>
-              </div>
-
-              {/* Start BookShelf */}
-              <div className="list-books-content">
-                <div>
-
-                  {/* Start Shelf */}
-
-                  {extract.bookshelf.shelves.map(shelf => <Shelf shelf={shelf} />)}
-
-                  
-                  {/* End of Shelf */}
-                    
-                  
-                </div>
-              </div>
-              <div className="open-search">
-                <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-              </div>
-            </div>
+            <BookPage bookshelf={extract.bookshelf} clickSearch={this.clickSearch} />
           )}
       </div>
     )
