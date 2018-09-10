@@ -1,7 +1,7 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './data/BooksAPI'
 import './App.css'
-// import { Books, APIBooks } from './BookData';
+import { APIBooks } from './data/BookData';
 
 class BooksApp extends React.Component {
   state = {
