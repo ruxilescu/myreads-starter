@@ -18,6 +18,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
+          // Start SearchPage
           <div className="search-books">
             <div className="search-books-bar">
               <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
@@ -38,17 +39,24 @@ class BooksApp extends React.Component {
               <ol className="books-grid"></ol>
             </div>
           </div>
+          // End
         ) : (
+            
+            // Start BookPage
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-              <div>
+                <div>
+                  
+                  {/* Start Shelf */}
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
                   <div className="bookshelf-books">
-                    <ol className="books-grid">
+                      <ol className="books-grid">
+                        
+                        {/* Start Book */}
                       <li>
                         <div className="book">
                           <div className="book-top">
@@ -66,7 +74,9 @@ class BooksApp extends React.Component {
                           <div className="book-title">To Kill a Mockingbird</div>
                           <div className="book-authors">Harper Lee</div>
                         </div>
-                      </li>
+                        </li>
+                        {/* End of Book */}
+
                       <li>
                         <div className="book">
                           <div className="book-top">
@@ -87,7 +97,9 @@ class BooksApp extends React.Component {
                       </li>
                     </ol>
                   </div>
-                </div>
+                  </div>
+                  {/* End Shelf */}
+
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Want to Read</h2>
                   <div className="bookshelf-books">
@@ -191,13 +203,16 @@ class BooksApp extends React.Component {
                       </li>
                     </ol>
                   </div>
-                </div>
+                  </div>
+                  
+
               </div>
             </div>
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
             </div>
-          </div>
+            </div>
+            // End
         )}
       </div>
     )
