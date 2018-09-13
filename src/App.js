@@ -1,19 +1,23 @@
 import React from 'react'
-// import * as BooksAPI from './data/BooksAPI'
+import * as BooksAPI from './data/BooksAPI'
 import './App.css'
-import { APIBooks } from './data/BookData';
 import SearchPage from './components/SearchPage';
 import BookPage from './components/BookPage';
 
 class BooksApp extends React.Component {
-  state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: false
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      books: [],
+      showSearchPage: true
+    }
+  }
+
+  componentDidMount = () => {
+    BooksAPI.getAll()
+      .then(res => this.setState({ books: res }))
+      .catch(err => { });
   }
 
   clickBack = () => {
@@ -24,18 +28,48 @@ class BooksApp extends React.Component {
     this.setState({ showSearchPage: true })
   }
 
-  render() {
+  changeShelf = (changeBook, newShelf) => {
+    BooksAPI.update(changeBook, newShelf);
 
-    const books = APIBooks;
-    
+    this.setState((state, props) => {
+      const books = state.books;
+
+      if (!books.includes(changeBook)) {
+        changeBook.shelf = newShelf;
+        books.push(changeBook);
+      }
+      else {
+        books.map(book => {
+          if (book.id === changeBook.id) {
+            book.shelf = newShelf
+          }
+
+          return book;
+        })
+
+      }
+
+
+      return { books }
+    })
+
+  }
+
+  render() {
+    const { books } = this.state;
+
     return (
       <div className="app">
         {this.state.showSearchPage
           ? (
-            <SearchPage clickBack={this.clickBack} />
+            <SearchPage clickBack={this.clickBack} books={books} changeShelf={this.changeShelf} />
           )
           : (
-            <BookPage books={books} clickSearch={this.clickSearch} />
+            <BookPage
+              books={books}
+              clickSearch={this.clickSearch}
+              changeShelf={this.changeShelf}
+            />
           )}
       </div>
     )

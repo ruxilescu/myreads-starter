@@ -19,7 +19,7 @@ export default class BookPage extends Component {
 
   render() {
 
-    const { clickSearch, books } = this.props;
+    const { clickSearch, books, changeShelf } = this.props;
     const shelves = this.putBooksOnShelf(books);
 
     return (
@@ -30,7 +30,7 @@ export default class BookPage extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            {shelves.map(shelf => <Shelf key={shelf.type} shelf={shelf}/>)}
+            {shelves.map(shelf => <Shelf key={shelf.type} shelf={shelf} changeShelf={changeShelf}/>)}
           </div>
         </div>
         <div className="open-search">

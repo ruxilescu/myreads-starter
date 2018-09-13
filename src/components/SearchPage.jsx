@@ -1,9 +1,39 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import * as BooksAPI from '../data/BooksAPI';
+import Book from './Book'
 
 export default class SearchPage extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      books: [],
+      query: ''
+    }
+  }
+
+  syncBooks = (queryBooksList) => {
+    return (queryBooksList.map(book => {
+      const myBook = this.props.books.find(item => item.id === book.id);
+      if (myBook) {
+        book['shelf'] = myBook.shelf;
+      }
+      return book;
+    }))
+  }
+
+  inputChange = (evt) => {
+    const query = evt.target.value;
+    this.setState({ query });
+    BooksAPI.search(query).then(res => this.setState({ books: Array.isArray(res) ? this.syncBooks(res) : [] }));
+  }
+  
+
   render() {
 
-    const { clickBack } = this.props;
+    const { clickBack, changeShelf } = this.props;
+    const { books } = this.state;
+    console.log(books)
 
     return (
       // Start SearchPage
@@ -19,12 +49,19 @@ export default class SearchPage extends Component {
             However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
             you don't find a specific author or title. Every search is limited by search terms.
           */}
-          <input type="text" placeholder="Search by title or author"/>
+            <input
+              value={this.state.query}
+              type="text"
+              placeholder="Search by title or author"
+              onChange={this.inputChange}
+            />
 
         </div>
       </div>
       <div className="search-books-results">
-        <ol className="books-grid"></ol>
+          <ol className="books-grid">
+            {books.map(book => <Book key={book.id} book={book} changeShelf={changeShelf} />)}
+          </ol>
       </div>
     </div>
     // End
