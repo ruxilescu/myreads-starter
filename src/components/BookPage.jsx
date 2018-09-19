@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import Shelf from './Shelf'
+import Shelf from './Shelf';
+import { Link } from 'react-router-dom'
+
+const styles = {
+  header: {
+    backgroundColor: 'red'
+  }
+}
 
 export default class BookPage extends Component {
 
@@ -25,7 +32,7 @@ export default class BookPage extends Component {
     return (
       // Start BookPage
       <div className="list-books">
-        <div className="list-books-title">
+        <div style={styles.header} className="list-books-title">
           <h1>MyReads</h1>
         </div>
         <div className="list-books-content">
@@ -34,7 +41,7 @@ export default class BookPage extends Component {
           </div>
         </div>
         <div className="open-search">
-          <a onClick={clickSearch}>Add a book</a>
+          <Link to='/search'>Add a book</Link>
         </div>
       </div>
       // End

@@ -3,6 +3,7 @@ import * as BooksAPI from './data/BooksAPI'
 import './App.css'
 import SearchPage from './components/SearchPage';
 import BookPage from './components/BookPage';
+import { Route } from 'react-router-dom'
 
 class BooksApp extends React.Component {
   constructor(props) {
@@ -60,17 +61,25 @@ class BooksApp extends React.Component {
 
     return (
       <div className="app">
-        {this.state.showSearchPage
-          ? (
+        <Route
+          exact
+          path='/'
+          render={() =>
+            (
+              <BookPage
+                books={books}
+                clickSearch={this.clickSearch}
+                changeShelf={this.changeShelf}
+              />
+            )
+          }
+        />
+        <Route
+          path='/search'
+          render={() => (
             <SearchPage clickBack={this.clickBack} books={books} changeShelf={this.changeShelf} />
-          )
-          : (
-            <BookPage
-              books={books}
-              clickSearch={this.clickSearch}
-              changeShelf={this.changeShelf}
-            />
           )}
+        />
       </div>
     )
   }
